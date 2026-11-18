@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "zephyrdailyuse",
+	"version": "${version}",
+	"name": "Zephyr Daily Use",
+	"description": "Re-adds the Daily Use module set for Zephyr Vanilla",
+	"authors": ["Zephyr"],
+	"license": "CC0-1.0",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["com.zephyr.dailyuse.ZephyrDailyUseClient"],
+		"zephyr": ["com.zephyr.dailyuse.ZephyrDailyUseAddon"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*",
+		"zephyr": "*"
+	},
+	"mixins": [
+		"zephyrdailyuse.client.mixins.json"
+	]
+}

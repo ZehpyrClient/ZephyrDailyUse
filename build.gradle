@@ -1,0 +1,59 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = project.mod_version
+group = "com.zephyr"
+
+base {
+	archivesName = 'zephyrdailyuse'
+}
+
+repositories {
+	mavenLocal()
+	maven { url 'https://maven.seedfinding.com/' }
+	maven { url 'https://maven-snapshots.seedfinding.com/' }
+	maven { url 'https://maven.latticg.com/' }
+}
+
+loom {
+	mods {
+		"zephyrdailyuse" {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	implementation "com.zephyr:zephyr:${project.zephyr_version}"
+
+	implementation("com.seedfinding:mc_math:851e9d0577dfdca50154e98f1d334bd31c641326") { transitive = false }
+	implementation("com.seedfinding:mc_seed:55f6242001f7eb4226df4ed0d023f1838a54a99d") { transitive = false }
+	implementation("com.seedfinding:mc_core:eee662999e9f3fe037476b6940dbd6d5e23cdbb6") { transitive = false }
+	implementation("com.seedfinding:mc_noise:dbab3996ea3abff5dd420db53c31d5498afd2fe5") { transitive = false }
+	implementation("com.seedfinding:mc_biome:17af8cb1110fdc983b7cb2b887d1fb2060e23ee3") { transitive = false }
+	implementation("com.seedfinding:mc_terrain:a03e440ec5b282e399382f2cc5ad0db91b438d2e") { transitive = false }
+	implementation("com.seedfinding:mc_feature:755d3611ac1c499c28289ccca5b738af6a5859b7") { transitive = false }
+	implementation("com.seedfinding:mc_reversal:75aa6ce47a9f53a1aa212765e9830e08f6c86299") { transitive = false }
+	implementation("com.seedfinding:latticg:1.07") { transitive = false }
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
